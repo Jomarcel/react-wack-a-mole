@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+
+const NUM_ROWS = 3;
+const NUM_COLUMNS = 3;
 
 const App = () => {
   const [score, setScore] = useState(0);
   const [grid, setGrid] = useState<boolean[][]>(
-    new Array(3)
+    new Array(NUM_ROWS)
       .fill(false)
-      .map(() => new Array(3).fill(false))
+      .map(() => new Array(NUM_COLUMNS).fill(false))
   )
 
   const wackMole = (rowIndex: number, columnIndex: number) => {
@@ -47,19 +50,17 @@ const App = () => {
     <div className="App">
       <div className='header'>Score: {score}</div>
       <div className='grid'>
-        {
-          grid.map((row, rowIdx) =>
-            <div key={rowIdx} className='row'>{row.map((_column, columnIdx) =>
-              <div key={columnIdx}>
-                <img
-                  onClick={() => wackMole(rowIdx, columnIdx)}
-                  alt=''
-                  src={`${process.env.PUBLIC_URL}${grid[rowIdx][columnIdx] ? '/images/mole.png' : '/images/hole.png'}`}>
-                </img>
-              </div>)
-            }
+        {grid.map((row, rowIdx) =>
+          <div key={rowIdx} className='row'>{row.map((_column, columnIdx) =>
+            <div key={columnIdx}>
+              <img
+                onClick={() => wackMole(rowIdx, columnIdx)}
+                alt=''
+                src={`${process.env.PUBLIC_URL}${grid[rowIdx][columnIdx] ? '/images/mole.png' : '/images/hole.png'}`}>
+              </img>
             </div>)
-        }
+          }
+          </div>)}
       </div>
     </div>
   );
