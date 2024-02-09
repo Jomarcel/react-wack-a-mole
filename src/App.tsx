@@ -4,13 +4,22 @@ import './App.css';
 const NUM_ROWS = 3;
 const NUM_COLUMNS = 3;
 
+// ** generates a 2D array filled with false values.
+// [
+//   [false, false, false],
+//   [false, false, false],
+//   [false, false, false]
+// ]
+
+const initialGrid: boolean[][] = new Array(NUM_ROWS)
+  .fill(false)
+  .map(() => new Array(NUM_COLUMNS).fill(false));
+
+
 const App = () => {
   const [score, setScore] = useState(0);
-  const [grid, setGrid] = useState<boolean[][]>(
-    new Array(NUM_ROWS)
-      .fill(false)
-      .map(() => new Array(NUM_COLUMNS).fill(false))
-  )
+  const [grid, setGrid] = useState(initialGrid)
+
 
   const wackMole = (rowIndex: number, columnIndex: number) => {
     if (!grid[rowIndex][columnIndex]) return;
@@ -48,7 +57,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className='header'>Score: {score}</div>
+      <h1 className='header'>Score: {score}</h1>
       <div className='grid'>
         {grid.map((row, rowIdx) =>
           <div key={rowIdx} className='row'>{row.map((_column, columnIdx) =>
